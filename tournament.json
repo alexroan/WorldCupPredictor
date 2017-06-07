@@ -3,7 +3,7 @@
 		"A": {
 			"Teams": {
 				"A1": {
-					"Name": "Russia"
+					
 				},
 				"A2": {
 					
@@ -312,7 +312,7 @@
 			"Fixtures": {
 				"15": {
 					"Home": "H1",
-					"Away": "H2`"
+					"Away": "H2"
 				},
 				"16": {
 					"Home": "H3",
@@ -414,5 +414,8 @@
 				}
 			}
 		}
+	},
+	"TeamNames":{
+		"A1" : "Russia"
 	}
 }
