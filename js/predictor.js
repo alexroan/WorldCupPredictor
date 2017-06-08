@@ -1,5 +1,4 @@
-$(window).ready(function(){
-		
+$(window).ready(function(){		
 	//Print fixtures on load
 	$.getJSON("tournament.json", function(data){
 		PrintFixtures(data);		
@@ -8,8 +7,7 @@ $(window).ready(function(){
 	//Handle change in predictions by user
 	$("body").on("change keyup paste", "input", function(event){
 		ResultsChange(event.target);
-	});
-	
+	});	
 });
 
 var groups = null;
@@ -21,8 +19,9 @@ function PrintFixtures(data){
 	groups = data["Groups"];
 	map = data["TeamNames"]
 	for (var group in groups){
-		fixtures = groups[group]["Fixtures"];
-		mainContent.append("<h4>Group "+group+"</h4>")
+		fixtures = groups[group]["Fixtures"];		
+		var groupTitle = "<h4>Group "+group+"</h4>";
+		var groupFixtures = [];
 		for (var fixture in fixtures){
 			var homeCode = fixtures[fixture]["Home"];
 			var homeName = "";
@@ -34,17 +33,19 @@ function PrintFixtures(data){
 			if (awayCode in map){
 				awayName = map[awayCode];
 			}
-			mainContent.append(ConstructFixture(fixture, homeCode, awayCode, homeName, awayName));
+			var constructedFixture = ConstructFixture(fixture, homeCode, awayCode, homeName, awayName);
+			groupFixtures.push(constructedFixture);
 		}
+
+		var groupRow = "<div class=\"row\">"+groupTitle;
+		groupRow = groupRow + "<div class=\"col-sm-6\">";
+		for (var i = 0; i < groupFixtures.length; i++) {
+			groupRow = groupRow + groupFixtures[i];
+		}
+		groupRow = groupRow + "</div><div id=\"group-"+group+"-table-div\" class=\"col-sm-6\"";
+		groupRow = groupRow + "</div>";
+		mainContent.append(groupRow);
 	}
-	/*
-	//Adding validation to each fixture form
-	var fixtureForms = $(".fixture");
-	for (var i = 0; i < fixtureForms.length; i++) {
-		var fixtureForm = fixtureForms[i];
-		$(fixtureForm).validator();
-	}
-	*/
 }
 
 //Construct the html for a fixture
@@ -58,6 +59,7 @@ function ConstructFixture(fixture, homeCode, awayCode, homeName, awayName){
 	return fixtureDiv;
 }
 
+//Update model with result changes
 function ResultsChange(target){
 	var id = target.id;
 	var value = $(target).val();
@@ -79,6 +81,11 @@ function ResultsChange(target){
 		console.log("Error updating score for id: "+id);
 	}
 	console.log(groups);
+}
+
+//Called when the groups model has changed
+function ModelChanged(){
+
 }
 
 
