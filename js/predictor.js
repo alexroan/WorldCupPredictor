@@ -103,7 +103,7 @@ function FixturesModelChanged(groupId, forceRefreshTable = false){
 	var fixtures = groupData["Fixtures"];
 	for(fixtureId in fixtures){
 		var fixture = fixtures[fixtureId];
-		if(fixture["HomeGoals"] && fixture["AwayGoals"]){
+		if(fixture["HomeGoals"] != null && fixture["AwayGoals"] != null){
 			fixtureChange = true;
 			//Update home and away team data
 			//Home, played, GF, GA, GD
