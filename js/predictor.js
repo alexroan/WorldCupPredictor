@@ -121,11 +121,18 @@ function ResultsChange(target){
 		var groupId = groupOrKnockout;
 		//Get match in data structure to change the predicted score
 		var match = groups[groupId]["Fixtures"][matchNumber];
+		var intGoals;
 		if(homeOrAway == "Home"){
-			match["HomeGoals"] = parseInt(value);
+			intGoals = parseInt(value);
+			if(!isNaN(intGoals)){
+				match["HomeGoals"] = intGoals;
+			}			
 		}
 		else if(homeOrAway == "Away"){
-			match["AwayGoals"] = parseInt(value);
+			intGoals = parseInt(value);
+			if(!isNaN(intGoals)){
+				match["AwayGoals"] = intGoals;
+			}			
 		}
 		else{
 			alert("Something went wrong trying to update the score");
