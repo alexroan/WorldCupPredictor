@@ -12,7 +12,7 @@ $(window).ready(function(){
 
 	//Group fixtures submitted
 	$("#submit-groups-button").click(function(){
-		alert('RAWR');
+		SubmitGroupFixtures();
 	});
 });
 
@@ -241,7 +241,28 @@ function RefreshTable(groupId){
 	}
 }
 
+function SubmitGroupFixtures(){
+	if(ValidateGroupFixtures()){
+		alert("woohoo");
+	}
+	else{
+		alert("Please fill al group fixtures in");
+	}
+}
 
+//Check all group fixtures have been filled
+function ValidateGroupFixtures(){
+	for(groupId in groups){
+		var groupFixtures = groups[groupId]["Fixtures"];
+		for(fixtureId in groupFixtures){
+			var fixtureDetails = groupFixtures[fixtureId];
+			if(fixtureDetails["HomeGoals"] == null || fixtureDetails["AwayGoals"] == null){
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 
 
