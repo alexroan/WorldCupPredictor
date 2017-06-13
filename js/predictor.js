@@ -1,22 +1,32 @@
 $(window).ready(function(){		
 	//Print fixtures on load
 	$.getJSON("tournament.json", function(data){
-		PrintFixtures(data);		
+		PrintGroupFixtures(data);	
+		PrintKnockoutFixtures(data);	
 	});
 
 	//Handle change in predictions by user
 	$("body").on("change keyup paste", "input", function(event){
 		ResultsChange(event.target);
 	});	
+
+	//Group fixtures submitted
+	$("#submit-groups-button").click(function(){
+		alert('RAWR');
+	});
 });
 
+//Global Models
 var groups = null;
+var knockouts = null;
 var map = null;
 
-function PrintFixtures(data){
-	var mainContent = $("#main-content");
+//Prints fixtures and tables
+function PrintGroupFixtures(data){
+	var groupContent = $("#group-content");
 	groups = data["Groups"];
-	map = data["TeamNames"]
+	map = data["TeamNames"];
+	groupContent.append("<h2>Group Stage</h2>");
 	for (var group in groups){
 		fixtures = groups[group]["Fixtures"];		
 		var groupTitle = "<h4>Group "+group+"</h4>";
@@ -43,17 +53,30 @@ function PrintFixtures(data){
 		}
 		groupRow = groupRow + "</div><div id=\"group-"+group+"-table-div\" class=\"col-sm-6\"";
 		groupRow = groupRow + "</div>";
-		mainContent.append(groupRow);
+		groupContent.append(groupRow);
 		PrintEmptyTable(group);
 		FixturesModelChanged(group, true);
 	}
 }
 
+//Print Knockouts Round 1
+function PrintKnockoutFixtures(data){
+	var knockoutContent = $("#knockout-content");
+	knockouts = data["Knockouts"];
+	knockoutContent.append("<h2>Knockout Rounds</h2>");
+	var knockoutFixtures = knockouts["Fixtures"]
+	for(round in knockoutFixtures){
+		var roundFixtures = knockoutFixtures[round];
+		knockoutContent.append("<h4>"+round+"</h4>");		
+	}
+}
+
 //Construct the html for a fixture
 function ConstructFixture(fixture, homeCode, awayCode, homeName, awayName){
-	var homeInput = "<input id=\""+fixture+"-"+homeCode+"\" type=\"number\" min=\"0\" class=\"form-control input-sm\" required>";
-	var awayInput = "<input id=\""+fixture+"-"+awayCode+"\" type=\"number\" min=\"0\" class=\"form-control input-sm\" required>";
-	var fixtureForm = "<form class=\"form-horizontal fixture\"><div class=\"col-xs-6\"><div class=\"col-xs-6\">"+homeInput+"</div><div class=\"col-xs-6\">"+awayInput+"</div></div></form>";
+	var homeInput = "<input id=\""+fixture+"-Home\" type=\"number\" min=\"0\" class=\"form-control input-sm\" required>";
+	var awayInput = "<input id=\""+fixture+"-Away\" type=\"number\" min=\"0\" class=\"form-control input-sm\" required>";
+	var groupId = homeCode.charAt(0);
+	var fixtureForm = "<form id=\""+groupId+"-"+fixture+"-form\" class=\"form-horizontal fixture\"><div class=\"col-xs-6\"><div class=\"col-xs-6\">"+homeInput+"</div><div class=\"col-xs-6\">"+awayInput+"</div></div></form>";
 	if(homeName == ""){	homeName = homeCode; }
 	if(awayName == ""){	awayName = awayCode; }
 	var fixtureDiv = "<div class=\"form-group row\"><div class=\"col-xs-3\">"+homeName+"</div>"+fixtureForm+"<div class=\"col-xs-3\">"+awayName+"</div></div>";
@@ -73,14 +96,15 @@ function ResultsChange(target){
 	//Get info from id
 	var splitId = id.split("-");
 	var matchNumber = splitId[0];
-	var teamId = splitId[1];
-	var groupId = teamId.charAt(0);
+	var homeOrAway = splitId[1];
+	var groupId = target.closest("form").id.charAt(0);
 	//Get match in data structure to change the predicted score
 	var match = groups[groupId]["Fixtures"][matchNumber];
-	if(match["Home"] == teamId){
+	console.log(groupId, matchNumber);
+	if(homeOrAway == "Home"){
 		match["HomeGoals"] = parseInt(value);
 	}
-	else if(match["Away"] == teamId){
+	else if(homeOrAway == "Away"){
 		match["AwayGoals"] = parseInt(value);
 	}
 	else{
