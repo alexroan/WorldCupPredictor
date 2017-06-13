@@ -64,11 +64,25 @@ function PrintKnockoutFixtures(data){
 	var knockoutContent = $("#knockout-content");
 	knockouts = data["Knockouts"];
 	knockoutContent.append("<h2>Knockout Rounds</h2>");
-	var knockoutFixtures = knockouts["Fixtures"]
+	var knockoutFixtures = knockouts["Fixtures"];
 	for(round in knockoutFixtures){
+		var roundRow = "<div class=\"row\">";
 		var roundFixtures = knockoutFixtures[round];
-		knockoutContent.append("<h4>"+round+"</h4>");
-		//Print each fixture		
+		roundRow = roundRow + "<h4>"+round+"</h4>";
+		var divSize = "6";
+		if(Object.keys(roundFixtures).length == 1){divSize = "12";}
+		//Print each fixture
+		for(fixtureId in roundFixtures){
+			roundRow = roundRow+"<div id=\"K-"+round+"-"+fixtureId+"\" class=\"col-sm-"+divSize+"\"><div class=\"form-group row\">";
+			roundRow = roundRow+"<div class=\"col-xs-3 home-team\">Home</div>";
+			roundRow = roundRow+"<form id=\"K-"+round+"-"+fixtureId+"-form\" class=\"form-horizontal\">";
+			roundRow = roundRow+"<div class=\"col-xs-6\"><div class=\"col-xs-6\"><input type=\"number\" min=\"0\" id=\""+fixtureId+"-Home\" class=\"form-control input-sm\"></div><div class=\"col-xs-6\"><input type=\"number\" min=\"0\" id=\""+fixtureId+"-Away\" class=\"form-control input-sm\"></div></div>";
+			roundRow = roundRow+"</form>";
+			roundRow = roundRow+"<div class=\"col-xs-3 away-team\">Away</div>";
+			roundRow = roundRow+"</div></div>";
+		}
+		roundRow = roundRow+"</div>";
+		knockoutContent.append(roundRow);
 	}
 }
 
@@ -100,9 +114,10 @@ function ResultsChange(target){
 	var homeOrAway = splitId[1];
 	var groupOrKnockout = target.closest("form").id.charAt(0);
 	if(groupOrKnockout == "K"){
-		//Its a knockout game
+		//It's a knockout game
 	}
 	else{
+		//It's a group game
 		var groupId = groupOrKnockout;
 		//Get match in data structure to change the predicted score
 		var match = groups[groupId]["Fixtures"][matchNumber];
@@ -117,8 +132,7 @@ function ResultsChange(target){
 			console.log("Error updating score for id: "+id);
 		}
 		FixturesModelChanged(groupId);
-	}
-	
+	}	
 }
 
 //Called when the groups model has changed
