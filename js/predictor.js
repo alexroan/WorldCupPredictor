@@ -241,9 +241,13 @@ function RefreshTable(groupId){
 	}
 }
 
+//Submit group fixtures button clicked
 function SubmitGroupFixtures(){
 	if(ValidateGroupFixtures()){
-		alert("woohoo");
+		HideGroupStage();
+		ShowKnockoutStage();
+		//Fill first round games with winners and runners up
+
 	}
 	else{
 		alert("Please fill al group fixtures in");
@@ -262,6 +266,28 @@ function ValidateGroupFixtures(){
 		}
 	}
 	return true;
+}
+
+function HideGroupStage(){
+	$("#group-content").hide();
+	$("#submit-groups-button").hide();
+}
+
+function ShowGroupStage(){
+	$("#group-content").show();
+	$("#submit-groups-button").show();
+}
+
+function HideKnockoutStage(){
+	$("#knockout-content").hide();
+	$("#knockouts-back-button").hide();
+	$("#submit-knockouts-button").hide();
+}
+
+function ShowKnockoutStage(){
+	$("#knockout-content").show();
+	$("#knockouts-back-button").show();
+	$("#submit-knockouts-button").show();
 }
 
 
