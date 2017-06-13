@@ -67,7 +67,8 @@ function PrintKnockoutFixtures(data){
 	var knockoutFixtures = knockouts["Fixtures"]
 	for(round in knockoutFixtures){
 		var roundFixtures = knockoutFixtures[round];
-		knockoutContent.append("<h4>"+round+"</h4>");		
+		knockoutContent.append("<h4>"+round+"</h4>");
+		//Print each fixture		
 	}
 }
 
@@ -97,21 +98,27 @@ function ResultsChange(target){
 	var splitId = id.split("-");
 	var matchNumber = splitId[0];
 	var homeOrAway = splitId[1];
-	var groupId = target.closest("form").id.charAt(0);
-	//Get match in data structure to change the predicted score
-	var match = groups[groupId]["Fixtures"][matchNumber];
-	console.log(groupId, matchNumber);
-	if(homeOrAway == "Home"){
-		match["HomeGoals"] = parseInt(value);
-	}
-	else if(homeOrAway == "Away"){
-		match["AwayGoals"] = parseInt(value);
+	var groupOrKnockout = target.closest("form").id.charAt(0);
+	if(groupOrKnockout == "K"){
+		//Its a knockout game
 	}
 	else{
-		alert("Something went wrong trying to update the score");
-		console.log("Error updating score for id: "+id);
+		var groupId = groupOrKnockout;
+		//Get match in data structure to change the predicted score
+		var match = groups[groupId]["Fixtures"][matchNumber];
+		if(homeOrAway == "Home"){
+			match["HomeGoals"] = parseInt(value);
+		}
+		else if(homeOrAway == "Away"){
+			match["AwayGoals"] = parseInt(value);
+		}
+		else{
+			alert("Something went wrong trying to update the score");
+			console.log("Error updating score for id: "+id);
+		}
+		FixturesModelChanged(groupId);
 	}
-	FixturesModelChanged(groupId);
+	
 }
 
 //Called when the groups model has changed
