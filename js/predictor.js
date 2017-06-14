@@ -331,6 +331,12 @@ function RefreshKnockoutFixture(roundId, fixtureId){
 	var awayDiv = $($("#K-"+roundId+"-"+fixtureId).find("div.away-team")[0]);
 	var homeTeamId = knockouts["Fixtures"][roundId][fixtureId]["HomeId"];
 	var awayTeamId = knockouts["Fixtures"][roundId][fixtureId]["AwayId"];
+	if(homeTeamId in map){
+		homeTeamId = map[homeTeamId];
+	}
+	if(awayTeamId in map){
+		awayTeamId = map[awayTeamId];
+	}
 	homeDiv.html(homeTeamId);
 	awayDiv.html(awayTeamId);
 }
