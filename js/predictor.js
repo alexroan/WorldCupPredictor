@@ -14,6 +14,12 @@ $(window).ready(function(){
 	$("#submit-groups-button").click(function(){
 		SubmitGroupFixtures();
 	});
+
+	//Knockout back button clicked
+	$("#knockouts-back-button").click(function(){
+		HideKnockoutStage();
+		ShowGroupStage();
+	});
 });
 
 //Global Models
@@ -73,7 +79,7 @@ function PrintKnockoutFixtures(data){
 		if(Object.keys(roundFixtures).length == 1){divSize = "12";}
 		//Print each fixture
 		for(fixtureId in roundFixtures){
-			roundRow = roundRow+"<div id=\"K-"+round+"-"+fixtureId+"\" class=\"col-sm-"+divSize+"\"><div class=\"form-group row\">";
+			roundRow = roundRow+"<div id=\"K-"+round+"-"+fixtureId+"\" class=\"col-sm-"+divSize+" "+round+"-fixture\"><div class=\"form-group row\">";
 			roundRow = roundRow+"<div class=\"col-xs-3 home-team\">Home</div>";
 			roundRow = roundRow+"<form id=\"K-"+round+"-"+fixtureId+"-form\" class=\"form-horizontal\">";
 			roundRow = roundRow+"<div class=\"col-xs-6\"><div class=\"col-xs-6\"><input type=\"number\" min=\"0\" id=\""+fixtureId+"-Home\" class=\"form-control input-sm\"></div><div class=\"col-xs-6\"><input type=\"number\" min=\"0\" id=\""+fixtureId+"-Away\" class=\"form-control input-sm\"></div></div>";
@@ -205,29 +211,8 @@ function RefreshTable(groupId){
 	var tableRows = $("#group-"+groupId+"-table-rows");
 	tableRows.empty();
 	var tableArray = [];
-	var teams = groups[groupId]["Teams"];
-	//Add teams to table array
-	for(var teamId in teams){
-		teamData = teams[teamId];
-		var teamArrayObj = {
-			name: teamId, 
-			p: teamData.P,
-			w: teamData.W,
-			d: teamData.D,
-			l: teamData.L,
-			gf: teamData.GF,
-			ga: teamData.GA,
-			gd: teamData.GD,
-			pts: teamData.Pts
-		};
-		tableArray[tableArray.length] = teamArrayObj;
-	}
-
-	//Sort table array
-	tableArray.sort(function(a,b){
-		return b.pts - a.pts || b.gd - a.gd || b.gf - a.gf;
-	});
-
+	var teams = groups[groupId]["Teams"];	
+	tableArray = SortTeamTable(teams, tableArray);
 	//Print table array to table
 	for (var i = 0; i < tableArray.length; i++) {
 		var teamData = tableArray[i];
@@ -248,17 +233,82 @@ function RefreshTable(groupId){
 	}
 }
 
+//Sorts into table according to pts,gd,gf....
+function SortTeamTable(teams, tableArray){
+	for(var teamId in teams){
+		var teamData = teams[teamId];
+		var teamArrayObj = {
+			name: teamId, 
+			p: teamData.P,
+			w: teamData.W,
+			d: teamData.D,
+			l: teamData.L,
+			gf: teamData.GF,
+			ga: teamData.GA,
+			gd: teamData.GD,
+			pts: teamData.Pts
+		};
+		tableArray[tableArray.length] = teamArrayObj;
+	}
+	//Sort table array
+	tableArray.sort(function(a,b){
+		return b.pts - a.pts || b.gd - a.gd || b.gf - a.gf;
+	});
+	return tableArray;
+}
+
 //Submit group fixtures button clicked
 function SubmitGroupFixtures(){
 	if(ValidateGroupFixtures()){
 		HideGroupStage();
-		ShowKnockoutStage();
 		//Fill first round games with winners and runners up
-
+		var roundId = "Round1";
+		var round1Fixtures = knockouts["Fixtures"][roundId];
+		var sortedTables = {};
+		for(fixtureId in round1Fixtures){
+			var fixtureDetails = round1Fixtures[fixtureId];
+			//Get home team
+			var classifier = fixtureDetails["Home"];	
+			var classifierResult = GetWinnerOrRunnerUpUsingClassifier(sortedTables, groupId, classifier);		
+			fixtureDetails["HomeId"] = classifierResult[0];
+			sortedTables = classifierResult[1];
+			//Get aay team
+			classifier = fixtureDetails["Away"];
+			classifierResult = GetWinnerOrRunnerUpUsingClassifier(sortedTables, groupId, classifier);
+			fixtureDetails["AwayId"] = classifierResult[0];
+			sortedTables = classifierResult[1];
+			RefreshKnockoutFixture(roundId,fixtureId);
+		}
+		ShowKnockoutStage();
 	}
 	else{
 		alert("Please fill al group fixtures in");
 	}
+}
+
+//Returns the winner or the runner up of the group depending on the classifier
+function GetWinnerOrRunnerUpUsingClassifier(sortedTables, groupId, classifier){
+	var splitClassifier = classifier.split("-");
+	var selector = splitClassifier[0];
+	var groupId = splitClassifier[2];
+	//If we've not already sorted them in a previous fixture
+	if(!(groupId in sortedTables)){
+		var tableArray = [];
+		var teams = groups[groupId]["Teams"];
+		tableArray = SortTeamTable(teams, tableArray);
+		sortedTables[groupId] = tableArray;
+	}
+	var teamId = null;
+	if(selector == "W"){
+		teamId = sortedTables[groupId][0];
+	}
+	else if (selector == "R"){
+		teamId = sortedTables[groupId][1];
+	}
+	else{
+		console.log("Err: round 1 fixture parsing");
+	}
+	return [teamId.name, sortedTables];
 }
 
 //Check all group fixtures have been filled
@@ -273,6 +323,16 @@ function ValidateGroupFixtures(){
 		}
 	}
 	return true;
+}
+
+//Refresh the teams in a specific knockout fixture
+function RefreshKnockoutFixture(roundId, fixtureId){
+	var homeDiv = $($("#K-"+roundId+"-"+fixtureId).find("div.home-team")[0]);
+	var awayDiv = $($("#K-"+roundId+"-"+fixtureId).find("div.away-team")[0]);
+	var homeTeamId = knockouts["Fixtures"][roundId][fixtureId]["HomeId"];
+	var awayTeamId = knockouts["Fixtures"][roundId][fixtureId]["AwayId"];
+	homeDiv.html(homeTeamId);
+	awayDiv.html(awayTeamId);
 }
 
 function HideGroupStage(){
