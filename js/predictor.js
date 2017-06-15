@@ -61,7 +61,7 @@ function PrintGroupFixtures(data){
 		groupRow = groupRow + "</div>";
 		groupContent.append(groupRow);
 		PrintEmptyTable(group);
-		FixturesModelChanged(group, true);
+		GroupsModelChanged(group, true);
 	}
 }
 
@@ -118,38 +118,55 @@ function ResultsChange(target){
 	var splitId = id.split("-");
 	var matchNumber = splitId[0];
 	var homeOrAway = splitId[1];
-	var groupOrKnockout = target.closest("form").id.charAt(0);
+	var fixtureDetails = target.closest("form").id.split("-");
+	var groupOrKnockout = fixtureDetails[0];
 	if(groupOrKnockout == "K"){
 		//It's a knockout game
+		console.log('knockout changed');
+		var roundId = fixtureDetails[1];
+		var match = knockouts["Fixtures"][roundId][matchNumber];
+		SetNewResults(homeOrAway, value, match, id);
+		KnockoutsModelChanged();
 	}
 	else{
 		//It's a group game
+		console.log('group changed');
 		var groupId = groupOrKnockout;
-		//Get match in data structure to change the predicted score
 		var match = groups[groupId]["Fixtures"][matchNumber];
-		var intGoals;
-		if(homeOrAway == "Home"){
-			intGoals = parseInt(value);
-			if(!isNaN(intGoals)){
-				match["HomeGoals"] = intGoals;
-			}			
-		}
-		else if(homeOrAway == "Away"){
-			intGoals = parseInt(value);
-			if(!isNaN(intGoals)){
-				match["AwayGoals"] = intGoals;
-			}			
-		}
-		else{
-			alert("Something went wrong trying to update the score");
-			console.log("Error updating score for id: "+id);
-		}
-		FixturesModelChanged(groupId);
-	}	
+		SetNewResults(homeOrAway, value, match, id);
+		GroupsModelChanged(groupId);
+	}
+}
+
+//Sets new results for the match model
+function SetNewResults(homeOrAway, value, match, id){
+	var intGoals;
+	if(homeOrAway == "Home"){
+		intGoals = parseInt(value);
+		if(!isNaN(intGoals)){
+			match["HomeGoals"] = intGoals;
+		}			
+	}
+	else if(homeOrAway == "Away"){
+		intGoals = parseInt(value);
+		if(!isNaN(intGoals)){
+			match["AwayGoals"] = intGoals;
+		}			
+	}
+	else{
+		alert("Something went wrong trying to update the score");
+		console.log("Error updating score for id: "+id);
+	}
+	return match;
+}
+
+//Called when knockouts model changed
+function KnockoutsModelChanged(){
+
 }
 
 //Called when the groups model has changed
-function FixturesModelChanged(groupId, forceRefreshTable = false){
+function GroupsModelChanged(groupId, forceRefreshTable = false){
 	var groupData = groups[groupId];
 	var teams = groupData["Teams"];
 	var fixtureChange = false;
