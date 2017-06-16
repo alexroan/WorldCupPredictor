@@ -166,6 +166,7 @@ function KnockoutsModelChanged(){
 	var rounds = knockouts["Fixtures"];
 	var winners = {};
 	var losers = {};
+	var draws = [];
 	for (round in rounds){
 		var fixtures = rounds[round]
 		for (fixtureId in fixtures){
@@ -186,6 +187,7 @@ function KnockoutsModelChanged(){
 				else{
 					//Penalty win. Supported? maybe not
 					console.log("draw detected");
+					draws.push(fixtureId);
 				}
 			}
 			else{
