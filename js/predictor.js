@@ -20,6 +20,11 @@ $(window).ready(function(){
 		HideKnockoutStage();
 		ShowGroupStage();
 	});
+
+	//Submit knockouts open a signup and payment form
+	$("#submit-knockouts-button").click(function(){
+		SubimtKnockoutFixtures();		
+	});
 });
 
 //Global Models
@@ -361,7 +366,7 @@ function SubmitGroupFixtures(){
 		ShowKnockoutStage();
 	}
 	else{
-		alert("Please fill al group fixtures in");
+		alert("Please fill in all group fixtures.");
 	}
 }
 
@@ -418,6 +423,32 @@ function RefreshKnockoutFixture(roundId, fixtureId){
 	}
 	homeDiv.html(homeTeamId);
 	awayDiv.html(awayTeamId);
+}
+
+//Called when user submits knockouts.
+//Check model is valid, open signup and payment modal
+function SubimtKnockoutFixtures(){
+	if(ValidateKnockoutFixtures()){
+		$("#singup-modal").modal('show');
+	}
+	else{
+		alert('Please fill in all knockout fixtures.');
+	}
+}
+
+//Ensure all knockout fixtures filled in
+function ValidateKnockoutFixtures(){
+	var knockoutRounds = knockouts["Fixtures"];
+	for (roundId in knockoutRounds){
+		var round = knockoutRounds[roundId];
+		for (fixtureId in round){
+			var fixtureDetails = round[fixtureId];
+			if(fixtureDetails["HomeGoals"] == null || fixtureDetails["AwayGoals"] == null){
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 function HideGroupStage(){
