@@ -133,7 +133,6 @@ function ResultsChange(target){
 	var groupOrKnockout = fixtureDetails[0];
 	if(groupOrKnockout == "K"){
 		//It's a knockout game
-		console.log('knockout changed');
 		var roundId = fixtureDetails[1];
 		var match = knockouts["Fixtures"][roundId][matchNumber];
 		SetNewResults(homeOrAway, value, match, id);
@@ -141,7 +140,6 @@ function ResultsChange(target){
 	}
 	else{
 		//It's a group game
-		console.log('group changed');
 		var groupId = groupOrKnockout;
 		var match = groups[groupId]["Fixtures"][matchNumber];
 		SetNewResults(homeOrAway, value, match, id);
@@ -182,6 +180,27 @@ function KnockoutsModelChanged(){
 		var fixtures = rounds[round]
 		for (fixtureId in fixtures){
 			var fixtureDetails = fixtures[fixtureId];
+
+			//Fill teams if set in winners dictionary
+			var homeClassifier = fixtureDetails["Home"].split("-");
+			var awayClassifier = fixtureDetails["Away"].split("-");
+			
+			//Check the classifier is the winner of a previous game or a loser
+			if(homeClassifier[0] == "W" && homeClassifier[2] in winners){
+				fixtureDetails["HomeId"] = winners[homeClassifier[2]];
+			}
+			else if (homeClassifier[0] == "L" && homeClassifier[2] in losers){
+				fixtureDetails["HomeId"] = losers[homeClassifier[2]];
+			}
+
+			//Check the classifier is the winner of a previous game or a loser
+			if(awayClassifier[0] == "W" && awayClassifier[2] in winners){
+				fixtureDetails["AwayId"] = winners[awayClassifier[2]];
+			}
+			else if(awayClassifier[0] == "L" && awayClassifier[2] in losers){
+				fixtureDetails["AwayId"] = losers[awayClassifier[2]];
+			}
+
 			var homeGoals = fixtureDetails["HomeGoals"];
 			var awayGoals = fixtureDetails["AwayGoals"];
 			if(homeGoals != null && awayGoals != null){
@@ -197,34 +216,12 @@ function KnockoutsModelChanged(){
 				}
 				else{
 					//Penalty win. Supported? maybe not
-					console.log("draw detected");
 					draws.push(fixtureId);
 				}
 			}
-			else{
-				//Fill teams if set in winners dictionary
-				var homeClassifier = fixtureDetails["Home"].split("-");
-				var awayClassifier = fixtureDetails["Away"].split("-");
-				
-				//Check the classifier is the winner of a previous game or a loser
-				if(homeClassifier[0] == "W" && homeClassifier[2] in winners){
-					fixtureDetails["HomeId"] = winners[homeClassifier[2]];
-				}
-				else if (homeClassifier[0] == "L" && homeClassifier[2] in losers){
-					fixtureDetails["HomeId"] = losers[homeClassifier[2]];
-				}
-
-				//Check the classifier is the winner of a previous game or a loser
-				if(awayClassifier[0] == "W" && awayClassifier[2] in winners){
-					fixtureDetails["AwayId"] = winners[awayClassifier[2]];
-				}
-				else if(awayClassifier[0] == "L" && awayClassifier[2] in losers){
-					fixtureDetails["AwayId"] = losers[awayClassifier[2]];
-				}
-			}
 		}
+		RefreshKnockouts();
 	}
-	RefreshKnockouts();
 }
 
 //Refresh teams in knockout games html
@@ -490,7 +487,6 @@ function FacebookLogin() {
         FB.api(
         	"/"+userId,
         	function (response){
-        		console.log(response);
         		user = {};
         		user["Email"] = response.email;
         		user["Name"] = response.name;
