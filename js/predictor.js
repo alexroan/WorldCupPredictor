@@ -25,12 +25,18 @@ $(window).ready(function(){
 	$("#submit-knockouts-button").click(function(){
 		SubimtKnockoutFixtures();		
 	});
+
+	//Facebook login button clicked
+	$("#facebook-login-btn").click(function(){
+		FacebookLogin();
+	})
 });
 
 //Global Models
 var groups = null;
 var knockouts = null;
 var map = null;
+var user = null;
 
 //Prints fixtures and tables
 function PrintGroupFixtures(data){
@@ -451,29 +457,56 @@ function ValidateKnockoutFixtures(){
 	return true;
 }
 
+//Hide group stage fixtures
 function HideGroupStage(){
 	$("#group-content").hide();
 	$("#submit-groups-button").hide();
 }
 
+//Show group stage fixtures
 function ShowGroupStage(){
 	$("#group-content").show();
 	$("#submit-groups-button").show();
 }
 
+//Hide knockout stage fixtures
 function HideKnockoutStage(){
 	$("#knockout-content").hide();
 	$("#knockouts-back-button").hide();
 	$("#submit-knockouts-button").hide();
 }
 
+//Show knockout stage fixtures
 function ShowKnockoutStage(){
 	$("#knockout-content").show();
 	$("#knockouts-back-button").show();
 	$("#submit-knockouts-button").show();
 }
 
+//Login to facebook and store email, name and facebook id
+function FacebookLogin() {
+    FB.login(function(response) {
+        var userId = response.authResponse.userID;
+        FB.api(
+        	"/"+userId,
+        	function (response){
+        		console.log(response);
+        		user = {};
+        		user["Email"] = response.email;
+        		user["Name"] = response.name;
+        		user["FacebookId"] = response.id;
+        	},
+        	{fields: 'email,name'}
+        );        
+    }, {scope: 'public_profile,email'});            
+}
 
+//Logout of facebook
+function FacebookLogout() {
+    FB.logout(function(response) {
+    	console.log(response);
+    });
+}
 
 
 

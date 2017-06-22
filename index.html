@@ -14,6 +14,26 @@
 	</head>
 	
 	<body>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId            : '475165379500733',
+					autoLogAppEvents : true,
+					xfbml            : true,
+					version          : 'v2.9'
+				});
+				FB.AppEvents.logPageView();
+			};
+
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+			</script>
 		<div class="container">
 			<div class="row text-center">
 				<h1>World Cup Predictor</h1>
@@ -33,7 +53,12 @@
 							<h4 class="modal-title">Signup</h4>
 						</div>
 						<div class="modal-body">
-							<p></p>
+							<p>
+								<a id="facebook-login-btn" class="btn btn-primary" href="#">Facebook Login</a>
+							</p>
+							<p>
+								<a></a>
+							</p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal"></button>
