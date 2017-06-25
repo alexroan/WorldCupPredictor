@@ -498,9 +498,10 @@ function FacebookLogin() {
     }, {scope: 'public_profile,email'});            
 }
 
+//Print any updates to screen when user model changes
 function UserModelChanged(){
-	$("#facebook-name-label").text(user["Name"]);
-	$("#facebook-email-label").text(user["Email"]);
+	$("#facebook-name-input").val(user["Name"]);
+	$("#facebook-email-input").val(user["Email"]);
 }
 
 //Logout of facebook
