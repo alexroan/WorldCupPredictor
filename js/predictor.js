@@ -491,10 +491,16 @@ function FacebookLogin() {
         		user["Email"] = response.email;
         		user["Name"] = response.name;
         		user["FacebookId"] = response.id;
+        		UserModelChanged();
         	},
         	{fields: 'email,name'}
         );        
     }, {scope: 'public_profile,email'});            
+}
+
+function UserModelChanged(){
+	$("#facebook-name-label").text(user["Name"]);
+	$("#facebook-email-label").text(user["Email"]);
 }
 
 //Logout of facebook
