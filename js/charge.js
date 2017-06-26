@@ -5,18 +5,22 @@ var handler = StripeCheckout.configure({
 	currency: 'gbp',
 	token: function(token) {
 		alert('charging card, please do not navigate away from page');
-		$.post("charge.php",
+		var model = {};
+		model["User"] = user;
+		model["Groups"] = groups;
+		model["Knockouts"] = knockouts;
+		$.post("server/charge.php",
 		{
 			stripeEmail: token.email,
-			stripeToken: token.id
+			stripeToken: token.id,
+			predictionModel: model
 		},
 		function(response){
-			console.log(response);
-			if(response == 1){
-				alert("Charged :) This is where the models get saved");
+			if (response == 1){
+				alert("Yay");
 			}
 			else{
-				alert('We could not charge you at this time :(');
+				alert("Didn't work");
 			}
 		});
 	}
@@ -30,7 +34,7 @@ $(window).load(function(){
 			name: 'World Cup Predictor',
 			description: 'Submit your predictions!',
 			zipCode: true,
-			amount: 500,
+			amount: 1000,
 			email: userEmail
 		});
 		event.preventDefault();

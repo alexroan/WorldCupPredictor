@@ -7,8 +7,7 @@
   try{
     $token  = $_POST['stripeToken'];
     $email = $_POST['stripeEmail'];
-
-    //print_r($_POST);
+    $model = $_POST['predictionModel'];
 
     $customer = \Stripe\Customer::create(array(
         'email' => $email,
@@ -17,14 +16,18 @@
 
     $charge = \Stripe\Charge::create(array(
         'customer' => $customer->id,
-        'amount'   => 500,
+        'amount'   => 1000,
         'currency' => 'gbp'
     ));
 
-    echo 1; 
+    if($charge->status == "succeeded"){
+      echo 1;
+    }
+    else{
+      echo 0;
+    }
   }
   catch (Exception $e){
     echo $e;
-    echo 0;
   }
 

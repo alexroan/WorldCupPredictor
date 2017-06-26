@@ -512,13 +512,3 @@ function FacebookLogout() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
