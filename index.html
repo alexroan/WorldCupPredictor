@@ -4,6 +4,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="css/custom.css" media="screen">
 		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
@@ -55,27 +56,31 @@
 						<div class="modal-header">
 							<h4 class="modal-title">Signup</h4>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body text-center">
 							<p>
-								<a id="facebook-login-btn" class="btn btn-primary" href="#">Facebook Login</a>
+								<a id="facebook-login-btn" class="btn btn-facebook" href="#">Facebook Login</a>
 							</p>
-							<form id="submit-predictions-form" class="form-horizontal" action="server/charge.php" method="POST">
+							<p>
+								<label id="facebook-name-label"></label>
+							</p>
+							<p>
+								<label id="facebook-email-label"></label>
+							</p>
+							<form style="display: none;" id="submit-predictions-form" class="form-horizontal" action="server/charge.php" method="POST">
 								<div class="form-group">
 									<label class="col-lg-2 control-label" for="facebook-name-input">Name</label>
 									<div class="col-lg-10">
-				        				<input class="form-control" type="text" id="facebook-name-input" name="facebook-name-input" placeholder="Name" required>
+				        				<input class="form-control" type="text" id="facebook-name-input" name="facebook-name-input" placeholder="Name" readonly required>
 				        			</div>
 								</div>
 								<div class="form-group">
 									<label class="col-lg-2 control-label" for="facebook-email-input">Email</label>
 									<div class="col-lg-10">
-				        				<input class="form-control" type="email" id="facebook-email-input" name="facebook-email-input" placeholder="Email" required>
+				        				<input class="form-control" type="email" id="facebook-email-input" name="facebook-email-input" placeholder="Email" readonly required>
 				        			</div>
 								</div>
-							</form>							
-						</div>
-						<div class="modal-footer">
-							<button id="post-submit-predictions-button" type="submit" form="submit-predictions-form" class="btn btn-default" data-dismiss="modal">Submit(&pound;5)</button>
+							</form>	
+							<button id="post-submit-predictions-button" type="submit" form="submit-predictions-form" class="btn btn-success" data-dismiss="modal" disabled>Submit(&pound;10)</button>						
 						</div>
 					</div>
 				</div>

@@ -1,0 +1,13 @@
+.btn-facebook{
+	background-color: #3b5998;
+	border-color: #3b5998;
+}
+
+.btn-facebook:hover{
+	background-color: #8b9dc3;
+	border-color: #8b9dc3;
+}
+
+a.btn-facebook{
+	color: white;
+}

@@ -502,6 +502,9 @@ function FacebookLogin() {
 function UserModelChanged(){
 	$("#facebook-name-input").val(user["Name"]);
 	$("#facebook-email-input").val(user["Email"]);
+	$("#facebook-name-label").text(user["Name"]);
+	$("#facebook-email-label").text(user["Email"]);
+	$("#post-submit-predictions-button").removeAttr('disabled');
 }
 
 //Logout of facebook
