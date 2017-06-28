@@ -21,6 +21,7 @@
     ));
 
     if($charge->status == "succeeded"){
+      file_put_contents("predictions/".$email.".json", $model);
       echo 1;
     }
     else{

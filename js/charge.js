@@ -9,13 +9,15 @@ var handler = StripeCheckout.configure({
 		model["User"] = user;
 		model["Groups"] = groups;
 		model["Knockouts"] = knockouts;
+		var jsonModel = JSON.stringify(model);
 		$.post("server/charge.php",
 		{
 			stripeEmail: token.email,
 			stripeToken: token.id,
-			predictionModel: model
+			predictionModel: jsonModel
 		},
 		function(response){
+			console.log(response);
 			if (response == 1){
 				alert("Yay");
 			}
