@@ -29,7 +29,17 @@ $(window).ready(function(){
 	//Facebook login button clicked
 	$("#facebook-login-btn").click(function(){
 		FacebookLogin();
-	})
+	});
+
+	//Autofill group games with random numbers
+	$("#autofill-groups").click(function(){
+		Autofill("#group-content");
+	});
+
+	//Autofill knockout games with random numbers
+	$("#autofill-knockouts").click(function(){
+		Autofill("#knockout-content");
+	});
 });
 
 //Global Models
@@ -502,7 +512,7 @@ function FacebookLogin() {
 function UserModelChanged(){
 	$("#facebook-name-input").val(user["Name"]);
 	$("#facebook-email-input").val(user["Email"]);
-	$("#facebook-name-label").text(user["Name"]);
+	$("#facebook-name-label").text("Hi there, "+user["Name"]);
 	$("#facebook-email-label").text(user["Email"]);
 	$("#post-submit-predictions-button").removeAttr('disabled');
 }
@@ -512,6 +522,23 @@ function FacebookLogout() {
     FB.logout(function(response) {
     	console.log(response);
     });
+}
+
+function Autofill(divId){
+	console.log("Autofill", divId);
+	var inputs = $(divId).find("input");
+	var lastNumber = 0
+	for (var i = 0; i < inputs.length; i++) {
+		var target = inputs[i];
+		var rand = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+		while(rand == lastNumber){
+			rand = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+		}
+		lastNumber = rand;
+		$(target).val(rand);
+		ResultsChange(target);
+	}
+	
 }
 
 
