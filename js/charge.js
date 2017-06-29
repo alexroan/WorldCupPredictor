@@ -20,6 +20,7 @@ var handler = StripeCheckout.configure({
 			console.log(response);
 			if (response == 1){
 				alert("Yay");
+				window.location.href = "/dashboard.html";
 			}
 			else{
 				alert("Didn't work");

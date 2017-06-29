@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>World Cup Predictions - Dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+	<link rel="stylesheet" href="css/custom.css" media="screen">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
+	<script src="js/dashboard.js"></script>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="../" class="navbar-brand"><strong>World Cup Predictor</strong></a>
+			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+		</div>
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a id="predictions-nav" href="#">My Predictions</a>
+				</li>
+				<li>
+					<a id="leaderboard-nav" href="#">Leaderboard</a>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row text-center">
+		<div class="col-sm-8" id="predictions-div">
+			<h3>My Predictions</h3>
+		</div>
+		<div class="col-sm-4" id="score-div">
+			<h3>My Score</h3>
+			<h1 id="score">20</h1>
+		</div>
+	</div>
+</div>
+</body>
+</html>

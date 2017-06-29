@@ -11,3 +11,9 @@
 a.btn-facebook{
 	color: white;
 }
+
+.nav>li>a{
+	position: relative;
+	display:block;
+	text-decoration: none;
+}
