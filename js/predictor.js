@@ -26,11 +26,6 @@ $(window).ready(function(){
 		SubimtKnockoutFixtures();		
 	});
 
-	//Facebook login button clicked
-	$("#facebook-login-btn").click(function(){
-		FacebookLogin();
-	});
-
 	//Autofill group games with random numbers
 	$("#autofill-groups").click(function(){
 		Autofill("#group-content");
@@ -490,23 +485,6 @@ function ShowKnockoutStage(){
 	$("#submit-knockouts-button").show();
 }
 
-//Login to facebook and store email, name and facebook id
-function FacebookLogin() {
-    FB.login(function(response) {
-        var userId = response.authResponse.userID;
-        FB.api(
-        	"/"+userId,
-        	function (response){
-        		user = {};
-        		user["Email"] = response.email;
-        		user["Name"] = response.name;
-        		user["FacebookId"] = response.id;
-        		UserModelChanged();
-        	},
-        	{fields: 'email,name'}
-        );        
-    }, {scope: 'public_profile,email'});            
-}
 
 //Print any updates to screen when user model changes
 function UserModelChanged(){
@@ -515,13 +493,8 @@ function UserModelChanged(){
 	$("#facebook-name-label").text("Hi there, "+user["Name"]);
 	$("#facebook-email-label").text(user["Email"]);
 	$("#post-submit-predictions-button").removeAttr('disabled');
-}
-
-//Logout of facebook
-function FacebookLogout() {
-    FB.logout(function(response) {
-    	console.log(response);
-    });
+	localStorage.setItem("Name", user["Name"]);
+	localStorage.setItem("Email", user["Email"]);
 }
 
 function Autofill(divId){
