@@ -1,0 +1,302 @@
+{
+	"Groups":{
+		"A":{
+			"Positions":{
+
+			}
+		},
+		"B":{
+			"Positions":{
+
+			}
+		},
+		"C":{
+			"Positions":{
+
+			}
+		},
+		"D":{
+			"Positions":{
+
+			}
+		},
+		"E":{
+			"Positions":{
+
+			}
+		},
+		"F":{
+			"Positions":{
+
+			}
+		},
+		"G":{
+			"Positions":{
+
+			}
+		},
+		"H":{
+			"Positions":{
+
+			}
+		},
+	},
+	"Results": {
+		"1":{
+			"HomeGoals": 1,
+			"AwayGoals": 3
+		},
+		"2":{
+			"HomeGoals": 0,
+			"AwayGoals": 1
+		},
+		"3":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"4":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"5":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"6":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"7":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"8":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"9":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"10":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"11":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"12":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"13":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"14":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"15":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"16":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"17":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"18":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"19":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"20":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"21":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"22":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"23":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"24":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"25":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"26":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"27":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"28":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"29":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"30":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"31":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"32":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"33":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"34":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"35":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"36":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"37":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"38":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"39":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"40":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"41":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"42":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"43":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"44":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"45":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"46":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"47":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"48":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"49":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"50":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"51":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"52":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"53":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"54":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"55":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"56":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"57":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"58":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"59":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"60":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"61":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"62":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"63":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		},
+		"64":{
+			"HomeGoals": ,
+			"AwayGoals": 
+		}
+	}
+}
