@@ -1,5 +1,12 @@
 $(window).ready(function(){	
-	alert(localStorage.Name);
+	
+	if(localStorage.getItem("Name") != null 
+		&& localStorage.getItem("Email") != null
+		&& localStorage.getItem("FacebookId") != null){
+
+		SetUser();
+	}
+
 });
 
 var serverAddress = "http://worldcup.dev/server";
@@ -9,9 +16,21 @@ var groupPredictions = null;
 var knockoutPredictions = null;
 var realModel = null;
 
+
+//Sets user details from localStorage
+function SetUser(){
+	user = {};
+	user["Name"] = localStorage.getItem("Name");
+	user["Email"] = localStorage.getItem("Email");
+	user["FacebookId"] = localStorage.getItem("FacebookId");
+	
+	GetUserPredictions();
+	GetRealModel();
+
+}
+
 //Called when logged into facebook
 function UserModelChanged(){
-
 }	
 
 function GetUserPredictions(){
@@ -21,18 +40,24 @@ function GetUserPredictions(){
 		path,
 		{Email: user["Email"]},
 		function(result){
-			groupPredictions = result["Groups"];
-			knockoutPredictions = result["Knockouts"];
-			console.log(groupPredictions, knockoutPredictions);
+			jsonResult = JSON.parse(result);
+			groupPredictions = jsonResult["Groups"];
+			knockoutPredictions = jsonResult["Knockouts"];
 		}
 	);	
 }
 
 
 function GetRealModel(){
-	$.getJSON(serverAddress+"/realmodel.json", function(data){
-		realModel = data;	
-		console.log(realModel);
+	var path = serverAddress+"/realmodel.json";
+	console.log(path);
+	$.ajax({
+		url: path,
+		data: null,
+		dataType: "json",
+		success: function(data){
+			console.log(data);
+		}
 	});
 	
 }

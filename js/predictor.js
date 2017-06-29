@@ -495,6 +495,7 @@ function UserModelChanged(){
 	$("#post-submit-predictions-button").removeAttr('disabled');
 	localStorage.setItem("Name", user["Name"]);
 	localStorage.setItem("Email", user["Email"]);
+	localStorage.setItem("FacebookId", user["FacebookId"]);
 }
 
 function Autofill(divId){
