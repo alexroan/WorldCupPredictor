@@ -1,14 +1,10 @@
 $(window).ready(function(){	
 	
+	//If user already logged in
 	if(localStorage.getItem("Name") != null 
 		&& localStorage.getItem("Email") != null
 		&& localStorage.getItem("FacebookId") != null){
-
-		SetUser();
-		
-	}
-	else{
-		//FacebookLogin();
+		SetUser();		
 	}
 
 });
@@ -34,6 +30,7 @@ function SetUser(){
 //Called when logged into facebook
 function UserModelChanged(){
 	console.log(user);
+	$("#facebook-login-btn").hide();
 	GetUserPredictions();
 }	
 
