@@ -21,3 +21,15 @@ a.btn-facebook{
 .main-content{
 	padding-top: 80px;
 }
+
+.correct-result{
+	background-color: #9FFF98;
+}
+
+.correct-score{
+	background-color: #10E500;
+}
+
+.wrong-result{
+	background-color: #FF8F8F;
+}

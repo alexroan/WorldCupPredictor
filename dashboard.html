@@ -11,9 +11,30 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 	<script type="text/javascript" src="js/validator.min.js"></script>
+	<script type="text/javascript" src="js/facebooklogin.js"></script>
 	<script src="js/dashboard.js"></script>
 </head>
 <body>
+<script>
+window.fbAsyncInit = function() {
+	FB.init({
+		appId            : '475165379500733',
+		autoLogAppEvents : true,
+		xfbml            : true,
+		version          : 'v2.9'
+	});
+	FB.AppEvents.logPageView();
+};
+
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>
 <div class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -42,6 +63,69 @@
 	<div class="row text-center">
 		<div class="col-sm-8" id="predictions-div">
 			<h3>My Predictions</h3>
+			<a id="facebook-login-btn" class="btn btn-facebook" href="#">Facebook Login</a>
+			<div class="row">
+				<div class="col-xs-8">
+					<h5>My Predictions</h5>
+				</div>
+				<div class="col-xs-4">
+					<div class="col-xs-8">
+						<h5>Result</h5>
+					</div>
+					<div class="col-xs-4">
+						<h5>P</h5>
+					</div>					
+				</div>
+			</div>
+
+			<div class="row correct-result">
+				<div class="col-xs-8">
+					<div class="col-xs-4">Russia</div>
+					<div class="col-xs-4">2-2</div>
+					<div class="col-xs-4">Spain</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="col-xs-8">
+						1-1
+					</div>
+					<div class="col-xs-4">
+						1
+					</div>
+				</div>
+			</div>
+
+			<div class="row correct-score">
+				<div class="col-xs-8">
+					<div class="col-xs-4">Germany</div>
+					<div class="col-xs-4">3-0</div>
+					<div class="col-xs-4">Brazil</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="col-xs-8">
+						3-0
+					</div>
+					<div class="col-xs-4">
+						3
+					</div>
+				</div>
+			</div>
+
+			<div class="row wrong-result">
+				<div class="col-xs-8">
+					<div class="col-xs-4">England</div>
+					<div class="col-xs-4">2-1</div>
+					<div class="col-xs-4">France</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="col-xs-8">
+						1-2
+					</div>
+					<div class="col-xs-4">
+						0
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="col-sm-4" id="score-div">
 			<h3>My Score</h3>
