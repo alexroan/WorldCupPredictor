@@ -26,6 +26,7 @@ def find_match_in_predictions(predictions, match_number):
 				break
 	return returned
 
+
 def calculate_points(fixture_prediction, fixture_result):
 	points = 0
 	home_goals_prediction = fixture_prediction["HomeGoals"]
@@ -40,6 +41,7 @@ def calculate_points(fixture_prediction, fixture_result):
 		if home_goals_prediction == real_home_goals and away_goals_prediction == real_away_goals:
 			points += 2
 	return points
+
 
 def determine_winner(home_goals, away_goals):
 	result = None
@@ -74,3 +76,9 @@ if real_model is not None:
 			print(fixture_prediction, fixture_result, points)
 else:
 	print('Couldnt read real model. Aborting')
+
+
+
+
+
+	
