@@ -67,6 +67,7 @@ if real_model is not None:
 	print('%d users found' % len(user_predictions_files))
 	for prediction_file in user_predictions_files:
 		print('Reading %s' % prediction_file)
+		total_points = 0
 		data_file = open(prediction_file)
 		user_model = json.load(data_file)
 		for result_id in real_model:
@@ -74,6 +75,13 @@ if real_model is not None:
 			fixture_prediction = find_match_in_predictions(user_model, result_id)
 			points = calculate_points(fixture_prediction, fixture_result)
 			print(fixture_prediction, fixture_result, points)
+			fixture_prediction["Points"] = points
+			total_points = total_points + points
+		user_model["TotalPoints"] = total_points
+		split_filepath = prediction_file.split('/')
+		outfile = split_filepath[0]+"/test/"+split_filepath[1]
+		with open(outfile, 'w') as outfile:
+			json.dump(user_model, outfile)
 else:
 	print('Couldnt read real model. Aborting')
 
@@ -81,4 +89,3 @@ else:
 
 
 
-	
