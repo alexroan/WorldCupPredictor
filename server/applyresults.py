@@ -54,13 +54,61 @@ def determine_winner(home_goals, away_goals):
 	return result
 
 
+def update_table(table, home, home_goals, away, away_goals):
+	if home not in table:
+		table[home] = {"P": 0, "GF": 0, "GA": 0, "GD": 0, "W": 0, "D": 0, "L": 0, "Pts": 0}
+	if away not in table:
+		table[away] = {"P": 0, "GF": 0, "GA": 0, "GD": 0, "W": 0, "D": 0, "L": 0, "Pts": 0}
+	t_home = table[home]
+	t_home["P"] += 1
+	t_home["GF"] += home_goals
+	t_home["GA"] += away_goals
+	t_home["GD"] = t_home["GF"] - t_home["GA"]
+	t_away = table[away]
+	t_away["P"] += 1
+	t_away["GF"] += away_goals
+	t_away["GA"] += home_goals
+	t_away["GD"] = t_away["GF"] - t_away["GA"]
+	if home_goals > away_goals:
+		t_home["W"] += 1
+		t_away["L"] += 1
+	elif home_goals < away_goals:
+		t_away["W"] += 1
+		t_home["L"] += 1
+	else:
+		t_home["D"] += 1
+		t_away["D"] += 1
+	t_home["Pts"] = (t_home["W"] * 3) + t_home["D"]
+	t_away["Pts"] = (t_away["W"] * 3) + t_away["D"]
+
+
+
 print('Reading real model')
 real_model = None
+real_groups = None
 with open('realmodel.json') as data_file:    
     data = json.load(data_file)
     real_model = data["Results"]
+    real_groups = data["Groups"]
     
-if real_model is not None:
+if real_model is not None and real_groups is not None:
+	#go through results and fill in table
+	print('Updating real tables using results')
+	for result_id in real_model:
+		#if result_id is a group game, must update real model groups
+		if int(result_id) < 49:
+			#update table and apply positions to Groups
+			result = real_model[result_id]
+			home_team = result["Home"]
+			away_team = result["Away"]
+			group_id = home_team[:1]
+			home_goals = result["HomeGoals"]
+			away_goals = result["AwayGoals"]
+			group_positions = real_groups[group_id]["Positions"]
+			update_table(group_positions, home_team, home_goals, away_team, away_goals)
+			print('Group %s table updated' % group_id)
+	print('Tables updated')
+
 	print('Real model read')
 	print('Finding users')
 	user_predictions_files = glob.glob('predictions/*.json')
