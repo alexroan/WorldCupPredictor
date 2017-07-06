@@ -1,4 +1,4 @@
-import json, glob
+import json, glob, operator
 
 def find_match_in_predictions(predictions, match_number):
 	returned = None
@@ -107,9 +107,8 @@ if real_model is not None and real_groups is not None:
 			group_positions = real_groups[group_id]["Positions"]
 			update_table(group_positions, home_team, home_goals, away_team, away_goals)
 			print('Group %s table updated' % group_id)
-	print('Tables updated')
 
-	print('Real model read')
+	print('Real model read, Tables updated')
 	print('Finding users')
 	user_predictions_files = glob.glob('predictions/*.json')
 	print('%d users found' % len(user_predictions_files))
@@ -118,18 +117,31 @@ if real_model is not None and real_groups is not None:
 		total_points = 0
 		data_file = open(prediction_file)
 		user_model = json.load(data_file)
+
+		#Group fixture points
+		print('Calculating group fixture points')
 		for result_id in real_model:
-			fixture_result = real_model[result_id]
-			fixture_prediction = find_match_in_predictions(user_model, result_id)
-			points = calculate_points(fixture_prediction, fixture_result)
-			print(fixture_prediction, fixture_result, points)
-			fixture_prediction["Points"] = points
-			total_points = total_points + points
+			if int(result_id) < 49:
+				fixture_result = real_model[result_id]
+				fixture_prediction = find_match_in_predictions(user_model, result_id)
+				points = calculate_points(fixture_prediction, fixture_result)
+				fixture_prediction["Points"] = points
+				total_points = total_points + points
 		user_model["TotalPoints"] = total_points
+		print('Group fixture points calculated')
+
+		#Group position points
+		
+
+		#Knockout fixture points (including extra points for having correct team in game)
+		#Tournament winner, runner up, 3rd and 4th place points
+
 		split_filepath = prediction_file.split('/')
 		outfile = split_filepath[0]+"/test/"+split_filepath[1]
+		print('Writing out to file: %s' % outfile)
 		with open(outfile, 'w') as outfile:
 			json.dump(user_model, outfile)
+			print('File written')
 else:
 	print('Couldnt read real model. Aborting')
 
