@@ -128,6 +128,17 @@ if real_model is not None and real_groups is not None:
 				points = calculate_fixture_prediction_points(fixture_prediction, fixture_result)
 				fixture_prediction["Points"] = points
 				total_points = total_points + points
+			elif int(result_id) >= 49:
+				#knockout fixture
+				#calculate result as normal, plus more if one or both teams in the game are correct
+				
+				#points for 1st,2nd,3rd,4th place predictions
+				if int(result_id) == 63:
+					print()
+					#3rd place playoff
+				elif int(result_id) == 64:
+					print()
+					#final
 		print('Group fixture points calculated')
 
 		#Group position points
@@ -161,9 +172,6 @@ if real_model is not None and real_groups is not None:
 		user_model["Groups"]["Points"] = total_groups_points
 		total_points += total_groups_points
 		user_model["TotalPoints"] = total_points
-
-		#Knockout fixture points (including extra points for having correct team in game)
-		#Tournament winner, runner up, 3rd and 4th place points
 
 		split_filepath = prediction_file.split('/')
 		outfile = split_filepath[0]+"/test/"+split_filepath[1]
