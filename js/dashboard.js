@@ -72,7 +72,7 @@ function PrintPredictions(){
 		for (fixtureId in groupFixtures){
 			var fixturePrediction = groupFixtures[fixtureId];
 			var actualResult = actualResults[fixtureId];
-			var predictionPoints = DeterminePredictionResult(fixturePrediction, actualResult);
+			DeterminePredictionResult(fixturePrediction, actualResult);
 		}
 	}
 }
@@ -85,7 +85,8 @@ function DeterminePredictionResult(fixturePrediction, actualResult){
 	if(actualResult != null){
 		var actualHomeGoals = actualResult["HomeGoals"];
 		var actualAwayGoals = actualResult["AwayGoals"];
-		predictionPoints = DeterminePoints(homeGoalsPrediction, awayGoalsPrediction, actualHomeGoals, actualAwayGoals);
+		//predictionPoints = DeterminePoints(homeGoalsPrediction, awayGoalsPrediction, actualHomeGoals, actualAwayGoals);
+		predictionPoints = fixturePrediction["Points"];
 	} 
 	var div = ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoints);
 	$("#predictions-div").append(div);

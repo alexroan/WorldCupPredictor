@@ -1,9 +1,13 @@
 $(window).ready(function(){		
 	//Print fixtures on load
+	GetTeamMap();
+	GetTournamentJson();
+	/*
 	$.getJSON("tournament.json", function(data){
 		PrintGroupFixtures(data);	
 		PrintKnockoutFixtures(data);	
 	});
+	*/
 
 	//Handle change in predictions by user
 	$("body").on("change keyup paste", "input", function(event){
@@ -43,11 +47,38 @@ var knockouts = null;
 var map = null;
 var user = null;
 
+var serverAddress = "http://worldcup.dev/server";
+
+function GetTournamentJson(){
+	var path = serverAddress+"/gettournament.php";
+	$.get(
+		path,
+		function(data){
+			var jsonData = JSON.parse(data);
+			PrintGroupFixtures(jsonData);	
+			PrintKnockoutFixtures(jsonData);
+		}
+	);
+}
+
+function GetTeamMap(){
+	var path = serverAddress+"/getmap.php";
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: path,
+		success: function(data){
+			console.log(data);
+			var jsonData = JSON.parse(data);
+			map = jsonData["TeamNames"];
+		}
+	});
+}
+
 //Prints fixtures and tables
 function PrintGroupFixtures(data){
 	var groupContent = $("#group-content");
 	groups = data["Groups"];
-	map = data["TeamNames"];
 	groupContent.append("<h2>Group Stage</h2>");
 	for (var group in groups){
 		fixtures = groups[group]["Fixtures"];		
@@ -83,6 +114,7 @@ function PrintGroupFixtures(data){
 
 //Print Knockouts Round 1
 function PrintKnockoutFixtures(data){
+	console.log(data);
 	var knockoutContent = $("#knockout-content");
 	knockouts = data["Knockouts"];
 	knockoutContent.append("<h2>Knockout Rounds</h2>");

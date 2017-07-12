@@ -87,7 +87,7 @@ def get_winning_and_losing_sides(fixture):
 	losing_side = None
 	if winning_side == "Home":
 		losing_side = "Away"
-	else if winning_side == "Away":
+	elif winning_side == "Away":
 		losing_side = "Home"
 	else:
 		print('draw in final?')
