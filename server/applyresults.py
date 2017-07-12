@@ -122,16 +122,16 @@ if real_model is not None and real_groups is not None:
 		#Group fixture points
 		print('Calculating group fixture points')
 		for result_id in real_model:
-			if int(result_id) < 49:
-				fixture_result = real_model[result_id]
-				fixture_prediction = find_match_in_predictions(user_model, result_id)
-				points = calculate_fixture_prediction_points(fixture_prediction, fixture_result)
-				fixture_prediction["Points"] = points
-				total_points = total_points + points
-			elif int(result_id) >= 49:
-				#knockout fixture
-				#calculate result as normal, plus more if one or both teams in the game are correct
-				
+			fixture_result = real_model[result_id]
+			fixture_prediction = find_match_in_predictions(user_model, result_id)
+			points = calculate_fixture_prediction_points(fixture_prediction, fixture_result)
+			#knockout fixture
+			if int(result_id) >= 49:				
+				#more points if one or both teams in the game are correct
+				if fixture_prediction["Home"] == fixture_result["Home"] or fixture_result["Away"]:
+					points += 3
+				if fixture_prediction["Away"] == fixture_result["Home"] or fixture_result["Away"]:
+					points += 3
 				#points for 1st,2nd,3rd,4th place predictions
 				if int(result_id) == 63:
 					print()
@@ -139,6 +139,8 @@ if real_model is not None and real_groups is not None:
 				elif int(result_id) == 64:
 					print()
 					#final
+			fixture_prediction["Points"] = points
+			total_points = total_points + points
 		print('Group fixture points calculated')
 
 		#Group position points
