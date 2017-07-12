@@ -82,6 +82,17 @@ def update_table(table, home, home_goals, away, away_goals):
 	t_away["Pts"] = (t_away["W"] * 3) + t_away["D"]
 
 
+def get_winning_and_losing_sides(fixture):
+	winning_side = determine_winner(fixture)
+	losing_side = None
+	if winning_side == "Home":
+		losing_side = "Away"
+	else if winning_side == "Away":
+		losing_side = "Home"
+	else:
+		print('draw in final?')
+		#Handle draws and penalties by adding a field "Winner" to fixture?
+	return (winning_side, losing_side)
 
 
 print('Reading real model')
@@ -134,11 +145,28 @@ if real_model is not None and real_groups is not None:
 					points += 3
 				#points for 1st,2nd,3rd,4th place predictions
 				if int(result_id) == 63:
-					print()
-					#3rd place playoff
+					predicted_3rd_side, predicted_4th_side = get_winning_and_losing_sides(fixture_prediction)
+					predicted_3rd = fixture_prediction[predicted_3rd_side+"Id"]
+					predicted_4th = fixture_prediction[predicted_4th_side+"Id"]
+					real_3rd_side, real_4th_side = get_winning_and_losing_sides(fixture_result)
+					real_3rd = fixture_prediction[real_3rd_side+"Id"]
+					real_4th = fixture_prediction[real_4th_side+"Id"]
+					if predicted_3rd == real_3rd:
+						points += 3
+					if predicted_4th == real_4th:
+						points += 3
 				elif int(result_id) == 64:
-					print()
-					#final
+					predicted_winning_side, predicted_losing_side = get_winning_and_losing_sides(fixture_prediction)
+					predicted_winner = fixture_prediction[predicted_winning_side+"Id"]
+					predicted_runner_up = fixture_prediction[predicted_losing_side+"Id"]
+					real_winning_side, real_losing_side = get_winning_and_losing_sides(fixture_result)
+					real_winner = fixture_prediction[real_winning_side+"Id"]
+					real_runner_up = fixture_prediction[real_losing_side+"Id"]
+					if predicted_winner == real_winner:
+						points += 10
+					if predicted_runner_up == real_runner_up:
+						points += 5
+
 			fixture_prediction["Points"] = points
 			total_points = total_points + points
 		print('Group fixture points calculated')
