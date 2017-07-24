@@ -58,9 +58,23 @@ function GetRealModel(){
 		function(result){
 			jsonResult = JSON.parse(result);
 			realModel = jsonResult;
+			GetMap();
 			PrintPredictions();
 		}
 	);	
+}
+
+function GetMap(){
+	var path = serverAddress+"/getmap.php";
+	$.ajax({
+		async: false,
+		type: 'GET',
+		url: path,
+		success: function(data){
+			var jsonData = JSON.parse(data);
+			map = jsonData["TeamNames"];
+		}
+	});
 }
 
 //Loads the user's predictions and compares with real model results
@@ -68,13 +82,17 @@ function PrintPredictions(){
 	console.log(groupPredictions, knockoutPredictions, realModel, totalPoints, map);
 	var actualResults = realModel["Results"];
 	for(groupId in groupPredictions){
+		$("#predictions-div").append("<h4>Group "+groupId+"</h4>");
 		var group = groupPredictions[groupId];
 		var groupFixtures = group["Fixtures"];
 		for (fixtureId in groupFixtures){
 			var fixturePrediction = groupFixtures[fixtureId];
 			var actualResult = actualResults[fixtureId];
-			DeterminePredictionResult(fixturePrediction, actualResult);
+			var div = DeterminePredictionResult(fixturePrediction, actualResult);
+			$("#predictions-div").append(div);
 		}
+		//TODO Print Table
+		$("#predictions-div").append("<h5>Table</h5>");
 	}
 	$("#score").html(totalPoints);
 }
@@ -87,11 +105,9 @@ function DeterminePredictionResult(fixturePrediction, actualResult){
 	if(actualResult != null){
 		var actualHomeGoals = actualResult["HomeGoals"];
 		var actualAwayGoals = actualResult["AwayGoals"];
-		//predictionPoints = DeterminePoints(homeGoalsPrediction, awayGoalsPrediction, actualHomeGoals, actualAwayGoals);
 		predictionPoints = fixturePrediction["Points"];
 	} 
-	var div = ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoints);
-	$("#predictions-div").append(div);
+	return ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoints);
 }
 
 //Determines winner given home and away goals
@@ -162,7 +178,6 @@ function ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoint
 			awayTeam = map[awayTeam];
 		}
 	}
-	
 
 	var homeGoalsPrediction = fixturePrediction["HomeGoals"];
 	var awayGoalsPrediction = fixturePrediction["AwayGoals"];
