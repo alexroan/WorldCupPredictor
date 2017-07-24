@@ -44,6 +44,7 @@ function GetUserPredictions(){
 			groupPredictions = jsonResult["Groups"];
 			knockoutPredictions = jsonResult["Knockouts"];
 			map = jsonResult["TeamNames"];
+			totalPoints = jsonResult["TotalPoints"];
 			GetRealModel();
 		}
 	);	
@@ -64,7 +65,7 @@ function GetRealModel(){
 
 //Loads the user's predictions and compares with real model results
 function PrintPredictions(){
-	console.log(groupPredictions, knockoutPredictions, realModel);
+	console.log(groupPredictions, knockoutPredictions, realModel, totalPoints, map);
 	var actualResults = realModel["Results"];
 	for(groupId in groupPredictions){
 		var group = groupPredictions[groupId];
@@ -75,6 +76,7 @@ function PrintPredictions(){
 			DeterminePredictionResult(fixturePrediction, actualResult);
 		}
 	}
+	$("#score").html(totalPoints);
 }
 
 //Determine how accurate the prediction was
@@ -179,7 +181,9 @@ function ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoint
 	div = div +	"</div><div class=\"col-xs-4\"><div class=\"col-xs-8\">";
 	div = div +	actualHomeGoals+"-"+actualAwayGoals;
 	div = div +	"</div><div class=\"col-xs-4\">";
-	div = div +	predictionPoints
+	if(predictionPoints != -1){
+		div = div +	predictionPoints;
+	}	
 	div = div +	"</div></div></div>";
 	return div;
 }
