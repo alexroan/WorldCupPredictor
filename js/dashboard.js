@@ -91,10 +91,49 @@ function PrintPredictions(){
 			var div = DeterminePredictionResult(fixturePrediction, actualResult);
 			$("#predictions-div").append(div);
 		}
-		//TODO Print Table
-		$("#predictions-div").append("<h5>Table</h5>");
+
+		//Print Table
+		var table = GetPredictedTableHtml(group["Teams"], group["PositionPoints"]);
+		$("#predictions-div").append(table);		
 	}
 	$("#score").html(totalPoints);
+}
+
+//Sort and print predicted table positions
+function GetPredictedTableHtml(teams, positionPoints){
+	var tableArray = [];
+	tableArray = SortTeamTable(teams, tableArray);
+	var table = "<div class=\"row\"><div class=\"col-xs-10\"><table class=\"table table-striped\">";
+	table += "<thead><tr><th>Name</th><th>Pl</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>";
+	table += "<tbody>";
+	for (var i = 0; i < tableArray.length; i++) {
+		var team = tableArray[i];
+		var teamName = "";
+		if (map != null){
+			if(team.name in map){
+				teamName = map[team.name];
+			}
+			else{
+				teamName = team.name;
+			}
+		}
+		table += "<tr><td>"+teamName+"</td>";
+		table += "<td>"+team.p+"</td>";
+		table += "<td>"+team.w+"</td>";
+		table += "<td>"+team.d+"</td>";
+		table += "<td>"+team.l+"</td>";
+		table += "<td>"+team.gf+"</td>";
+		table += "<td>"+team.ga+"</td>";
+		table += "<td>"+team.gd+"</td>";
+		table += "<td>"+team.pts+"</td></tr>";
+	}
+	table += "</tbody>";
+	table += "</table></div>";
+	if(positionPoints == null){
+		positionPoints = 0;
+	}
+	table += "<div class=\"col-xs-2 correct-result\">"+positionPoints+"</div></div>";
+	return table;
 }
 
 //Determine how accurate the prediction was
