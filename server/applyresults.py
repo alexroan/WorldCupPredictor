@@ -137,11 +137,11 @@ if real_model is not None and real_groups is not None:
 			fixture_prediction = find_match_in_predictions(user_model, result_id)
 			points = calculate_fixture_prediction_points(fixture_prediction, fixture_result)
 			#knockout fixture
-			if int(result_id) >= 49:				
+			if int(result_id) >= 49:	
 				#more points if one or both teams in the game are correct
-				if fixture_prediction["Home"] == fixture_result["Home"] or fixture_result["Away"]:
+				if fixture_prediction["HomeId"] == fixture_result["Home"] or fixture_prediction["HomeId"] == fixture_result["Away"]:
 					points += 3
-				if fixture_prediction["Away"] == fixture_result["Home"] or fixture_result["Away"]:
+				if fixture_prediction["AwayId"] == fixture_result["Home"] or fixture_prediction["AwayId"] ==  fixture_result["Away"]:
 					points += 3
 				#points for 1st,2nd,3rd,4th place predictions
 				if int(result_id) == 63:
