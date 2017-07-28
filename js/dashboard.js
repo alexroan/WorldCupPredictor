@@ -61,6 +61,7 @@ function GetRealModel(){
 			GetMap();
 			PrintGroupPredictions();
 			PrintKnockoutPredictions();
+			$("#score").html(totalPoints);
 		}
 	);	
 }
@@ -82,6 +83,7 @@ function GetMap(){
 //Loads the user's group predictions and compares with real model results
 function PrintGroupPredictions(){
 	var actualResults = realModel["Results"];
+	$("#predictions-div").append("<h3>Groups</h3>");
 	for(groupId in groupPredictions){
 		if(groupId == "Points"){
 			break;
@@ -101,14 +103,23 @@ function PrintGroupPredictions(){
 		var positionHtml = GetPredictionTablePointsHtml(groupId, group["PositionPoints"]);
 		$("#predictions-div").append(positionHtml);
 	}
-	$("#score").html(totalPoints);
 }
 
 //Print knockout predictions and compares with real model results
 function PrintKnockoutPredictions(){
-	//TODO
+	var actualResults = realModel["Results"];
+	$("#predictions-div").append("<h3>Knockouts</h3>");
+	for(roundId in knockoutPredictions["Fixtures"]){
+		var round = knockoutPredictions["Fixtures"][roundId];
+		$("#predictions-div").append("<h4>"+roundId+"</h4>");
+		for (fixtureId in round){
+			var fixture = round[fixtureId];
+			var actualResult = actualResults[fixtureId];
+			var div = DeterminePredictionResult(fixture, actualResult);
+			$("#predictions-div").append(div);
+		}
+	}
 }
-
 
 //Using this instead of printing predicted table
 function GetPredictionTablePointsHtml(groupId, positionPoints){
@@ -116,8 +127,7 @@ function GetPredictionTablePointsHtml(groupId, positionPoints){
 		positionPoints = "-";
 	}
 
-	var html = "";//"<h4>Position Points</h4>";
-	html += "<div class=\"row\">";
+	var html += "<div class=\"row\">";
 	html += "<div class=\"col-xs-10\">Group "+groupId+" table position prediction points</div>";
 	html += "<div class=\"col-xs-2 correct-result\">"+positionPoints+"</div>";
 	html += "</div>";
@@ -214,11 +224,14 @@ function ConstructPredictionDiv(fixturePrediction, actualResult, predictionPoint
 	if(predictionPoints == 0){
 		resultClass = "wrong-result";
 	}
-	else if (predictionPoints == 1){
+	else if (predictionPoints >= 1 && predictionPoints < 3){
 		resultClass = "correct-result";
 	}
 	else if (predictionPoints == 3){
 		resultClass = "correct-score";
+	}
+	else if (predictionPoints > 3){
+		resultClass = "super-correct";
 	}
 
 	//Map id to name
