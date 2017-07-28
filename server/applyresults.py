@@ -199,7 +199,6 @@ if real_model is not None and real_groups is not None:
 				print("Group %s points: %d" % (group_id, group_points))
 				total_groups_points += group_points
 
-		user_model["Groups"]["Points"] = total_groups_points
 		total_points += total_groups_points
 		user_model["TotalPoints"] = total_points
 
