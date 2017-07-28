@@ -29,11 +29,11 @@ function SetUser(){
 
 //Called when logged into facebook
 function UserModelChanged(){
-	console.log(user);
 	$("#facebook-login-btn").hide();
 	GetUserPredictions();
 }	
 
+//Get specific user prediction model
 function GetUserPredictions(){
 	var path = serverAddress+"/userpredictions.php";
 	$.post(
@@ -59,11 +59,13 @@ function GetRealModel(){
 			jsonResult = JSON.parse(result);
 			realModel = jsonResult;
 			GetMap();
-			PrintPredictions();
+			PrintGroupPredictions();
+			PrintKnockoutPredictions();
 		}
 	);	
 }
 
+//Get team map
 function GetMap(){
 	var path = serverAddress+"/getmap.php";
 	$.ajax({
@@ -77,11 +79,13 @@ function GetMap(){
 	});
 }
 
-//Loads the user's predictions and compares with real model results
-function PrintPredictions(){
-	console.log(groupPredictions, knockoutPredictions, realModel, totalPoints, map);
+//Loads the user's group predictions and compares with real model results
+function PrintGroupPredictions(){
 	var actualResults = realModel["Results"];
 	for(groupId in groupPredictions){
+		if(groupId == "Points"){
+			break;
+		}
 		$("#predictions-div").append("<h4>Group "+groupId+"</h4>");
 		var group = groupPredictions[groupId];
 		var groupFixtures = group["Fixtures"];
@@ -91,12 +95,33 @@ function PrintPredictions(){
 			var div = DeterminePredictionResult(fixturePrediction, actualResult);
 			$("#predictions-div").append(div);
 		}
-
 		//Print Table
-		var table = GetPredictedTableHtml(group["Teams"], group["PositionPoints"]);
-		$("#predictions-div").append(table);		
+		//var table = GetPredictedTableHtml(group["Teams"], group["PositionPoints"]);
+		//$("#predictions-div").append(table);	
+		var positionHtml = GetPredictionTablePointsHtml(groupId, group["PositionPoints"]);
+		$("#predictions-div").append(positionHtml);
 	}
 	$("#score").html(totalPoints);
+}
+
+//Print knockout predictions and compares with real model results
+function PrintKnockoutPredictions(){
+	//TODO
+}
+
+
+//Using this instead of printing predicted table
+function GetPredictionTablePointsHtml(groupId, positionPoints){
+	if (positionPoints == null){
+		positionPoints = "-";
+	}
+
+	var html = "";//"<h4>Position Points</h4>";
+	html += "<div class=\"row\">";
+	html += "<div class=\"col-xs-10\">Group "+groupId+" table position prediction points</div>";
+	html += "<div class=\"col-xs-2 correct-result\">"+positionPoints+"</div>";
+	html += "</div>";
+	return html;
 }
 
 //Sort and print predicted table positions
