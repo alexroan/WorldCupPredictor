@@ -1,3 +1,5 @@
+var serverAddress = "http://worldcup.dev/server";
+
 //Sorts into table according to pts,gd,gf....
 function SortTeamTable(teams, tableArray){
 	for(var teamId in teams){

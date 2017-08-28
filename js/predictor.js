@@ -47,8 +47,6 @@ var knockouts = null;
 var map = null;
 var user = null;
 
-var serverAddress = "http://worldcup.dev/server";
-
 function GetTournamentJson(){
 	var path = serverAddress+"/gettournament.php";
 	$.get(

@@ -9,7 +9,6 @@ $(window).ready(function(){
 
 });
 
-var serverAddress = "http://worldcup.dev/server";
 var user = null;
 var groupPredictions = null;
 var knockoutPredictions = null;
