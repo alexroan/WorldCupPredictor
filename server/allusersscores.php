@@ -12,7 +12,7 @@ for ($i=0; $i < count($files); $i++) {
 	$decoded_json = json_decode($json_string);
 	$score = $decoded_json->TotalPoints;
 
-	$filedata["user"] = $thisfile;
+	$filedata["user"] = str_replace("predictions/test/", "", $thisfile);
 	$filedata["score"] = $score;
 
 	array_push($data, $filedata);

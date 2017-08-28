@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>World Cup Predictions - Leaderboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+	<link rel="stylesheet" href="css/custom.css" media="screen">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
+	<script type="text/javascript" src="js/facebooklogin.js"></script>
+	<script type="text/javascript" src="js/tablesorting.js"></script>
+	<script src="js/leaderboard.js"></script>
+</head>
+<body>
+	<script>
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId            : '475165379500733',
+			autoLogAppEvents : true,
+			xfbml            : true,
+			version          : 'v2.9'
+		});
+		FB.AppEvents.logPageView();
+	};
+
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+	</script>
+
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="../" class="navbar-brand"><strong>World Cup Predictor</strong></a>
+			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+		</div>
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a id="predictions-nav" href="#">My Predictions</a>
+				</li>
+				<li>
+					<a id="leaderboard-nav" href="#">Leaderboard</a>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+<div class="container main-content">
+	<div class="row text-center">
+		<div class="col-sm-12" id="leaders-div">
+			<h2>Leaderboard</h2>
+			<table class="table-striped">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Points</th>
+					</tr>
+				</thead>
+				<tbody id="leader-table-body">
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
