@@ -1,4 +1,12 @@
 $(window).ready(function(){		
+
+	//If user already signed in, do to dashboard
+	if(localStorage.getItem("Name") != null 
+		&& localStorage.getItem("Email") != null
+		&& localStorage.getItem("FacebookId") != null){
+		window.location.href = "dashboard.html";
+	}
+
 	//Print fixtures on load
 	GetTeamMap();
 	GetTournamentJson();
