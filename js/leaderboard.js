@@ -18,15 +18,18 @@ function GetAllUsersScores(){
 }
 
 function PrintLeaderboard(jsonData){
+	var counter = 1;
 	for (var i = 0; i < jsonData.length; i++) {
 		var userData = jsonData[i];
-		var row = ConstructRow(userData["user"], userData["score"]);
+		var row = ConstructRow(counter, userData["user"].replace(".json",""), userData["score"]);
 		$("#leader-table-body").append(row);
+		counter++;
 	}	
 }
 
-function ConstructRow(user, points){
+function ConstructRow(position, user, points){
 	var row = "<tr>";
+	row += "<td>"+position+"</td>";
 	row += "<td>"+user+"</td>";
 	row += "<td>"+points+"</td>";
 	row += "</tr>";

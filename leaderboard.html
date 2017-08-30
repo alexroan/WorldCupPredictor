@@ -50,10 +50,10 @@
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a id="predictions-nav" href="#">My Predictions</a>
+					<a id="predictions-nav" href="dashboard.html">My Predictions</a>
 				</li>
 				<li>
-					<a id="leaderboard-nav" href="#">Leaderboard</a>
+					<a id="leaderboard-nav" href="leaderboard.html">Leaderboard</a>
 				</li>
 			</ul>
 			
@@ -62,19 +62,22 @@
 </div>
 
 <div class="container main-content">
-	<div class="row text-center">
-		<div class="col-sm-12" id="leaders-div">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3" id="leaders-div">
 			<h2>Leaderboard</h2>
-			<table class="table-striped">
-				<thead>
-					<tr>
-						<th>User</th>
-						<th>Points</th>
-					</tr>
-				</thead>
-				<tbody id="leader-table-body">
-				</tbody>
-			</table>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Position</th>
+							<th>User</th>
+							<th>Points</th>
+						</tr>
+					</thead>
+					<tbody id="leader-table-body">
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
