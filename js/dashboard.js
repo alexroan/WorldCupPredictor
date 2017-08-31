@@ -6,10 +6,6 @@ $(window).ready(function(){
 		&& localStorage.getItem("FacebookId") != null){
 		SetUser();		
 	}
-	//if not signed in, move to index page
-	else{
-		window.location.href = "index.html";
-	}
 
 });
 
