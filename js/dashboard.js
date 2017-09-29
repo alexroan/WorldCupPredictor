@@ -127,7 +127,7 @@ function GetPredictionTablePointsHtml(groupId, positionPoints){
 	}
 
 	var html = "<div class=\"row\">";
-	html += "<div class=\"col-xs-10\">Group "+groupId+" table position prediction points</div>";
+	html += "<div class=\"col-xs-10\">Extra points for Group "+groupId+" predicted positions</div>";
 	html += "<div class=\"col-xs-2 correct-result\">"+positionPoints+"</div>";
 	html += "</div>";
 	return html;
