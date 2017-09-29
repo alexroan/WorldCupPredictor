@@ -10,33 +10,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-	<script type="text/javascript" src="js/validator.min.js"></script>
-	<script type="text/javascript" src="js/facebooklogin.js"></script>
-	<script type="text/javascript" src="js/tablesorting.js"></script>
-	<script type="text/javascript" src="js/ajax.js"></script>
-	<script type="text/javascript" src="js/leaderboard.js"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/prizepot.js"></script>
 </head>
 <body>
-	<script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId            : '475165379500733',
-			autoLogAppEvents : true,
-			xfbml            : true,
-			version          : 'v2.9'
-		});
-		FB.AppEvents.logPageView();
-	};
-
-	(function(d, s, id){
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
-	</script>
 
 <div class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -65,17 +42,17 @@
 <div class="container main-content">
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3" id="leaders-div">
-			<h2 class="text-center">Leaderboard</h2>
+            <h2 class="text-center">Prizes</h2>
+            <h4 id="prize-description"></h4>
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Position</th>
-							<th>User</th>
-							<th>Points</th>
+							<th>Prize Money (&pound;)</th>
 						</tr>
 					</thead>
-					<tbody id="leader-table-body">
+					<tbody id="prize-table-body">
 					</tbody>
 				</table>
 			</div>

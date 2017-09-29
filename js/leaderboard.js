@@ -1,23 +1,8 @@
 $(window).ready(function(){
-
 	GetAllUsersScores();
-
 });
 
-
-
-function GetAllUsersScores(){
-	var path = serverAddress+"/allusersscores.php";
-	$.get(
-		path,
-		function(data){
-			var jsonData = JSON.parse(data);
-			PrintLeaderboard(jsonData);
-		}
-	);
-}
-
-function PrintLeaderboard(jsonData){
+function HandleResults(jsonData){
 	var counter = 1;
 	for (var i = 0; i < jsonData.length; i++) {
 		var userData = jsonData[i];
