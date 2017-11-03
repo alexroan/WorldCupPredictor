@@ -28,6 +28,6 @@ function FacebookLogin() {
 //Logout of facebook
 function FacebookLogout() {
     FB.logout(function(response) {
-        console.log(response);
+        //console.log(response);
     });
 }

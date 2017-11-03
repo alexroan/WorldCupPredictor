@@ -17,7 +17,6 @@ var handler = StripeCheckout.configure({
 			predictionModel: jsonModel
 		},
 		function(response){
-			console.log(response);
 			if (response == 1){
 				alert("Yay");
 				window.location.href = "/dashboard.html";

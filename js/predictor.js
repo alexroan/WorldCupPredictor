@@ -74,7 +74,6 @@ function GetTeamMap(){
 		type: 'GET',
 		url: path,
 		success: function(data){
-			console.log(data);
 			var jsonData = JSON.parse(data);
 			map = jsonData["TeamNames"];
 		}
@@ -120,7 +119,6 @@ function PrintGroupFixtures(data){
 
 //Print Knockouts Round 1
 function PrintKnockoutFixtures(data){
-	console.log(data);
 	var knockoutContent = $("#knockout-content");
 	knockouts = data["Knockouts"];
 	knockoutContent.append("<h2>Knockout Rounds</h2>");
@@ -207,7 +205,6 @@ function SetNewResults(homeOrAway, value, match, id){
 	}
 	else{
 		alert("Something went wrong trying to update the score");
-		console.log("Error updating score for id: "+id);
 	}
 	return match;
 }
@@ -514,7 +511,6 @@ function UserModelChanged(){
 }
 
 function Autofill(divId){
-	console.log("Autofill", divId);
 	var inputs = $(divId).find("input");
 	var lastNumber = 0
 	for (var i = 0; i < inputs.length; i++) {
