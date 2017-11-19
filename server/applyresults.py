@@ -203,7 +203,7 @@ if real_model is not None and real_groups is not None:
 		user_model["TotalPoints"] = total_points
 
 		split_filepath = prediction_file.split('/')
-		outfile = split_filepath[0]+"/test/"+split_filepath[1]
+		outfile = split_filepath[0]+"/points/"+split_filepath[1]
 		print('Writing out to file: %s' % outfile)
 		with open(outfile, 'w') as outfile:
 			json.dump(user_model, outfile)

@@ -4,7 +4,7 @@ session_start();
 
 try{
 	$email = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
-	$filepath = "predictions/test/".$email.".json";
+	$filepath = "predictions/points/".$email.".json";
 	if(file_exists($filepath)){
 		$file = fopen($filepath, "r") or die("unable to read file");
 		$json = fread($file, filesize($filepath));
