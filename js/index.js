@@ -10,12 +10,6 @@ $(window).ready(function(){
 	//Print fixtures on load
 	GetTeamMap();
 	GetTournamentJson();
-	/*
-	$.getJSON("tournament.json", function(data){
-		PrintGroupFixtures(data);	
-		PrintKnockoutFixtures(data);	
-	});
-	*/
 
 	//Handle change in predictions by user
 	$("body").on("change keyup paste", "input", function(event){
