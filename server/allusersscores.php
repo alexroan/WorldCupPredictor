@@ -12,7 +12,8 @@ for ($i=0; $i < count($files); $i++) {
 	$decoded_json = json_decode($json_string);
 	$score = $decoded_json->TotalPoints;
 
-	$filedata["user"] = str_replace($directory, "", $thisfile);
+	$filedata["email"] = $decoded_json->User->Email;
+	$filedata["name"] = $decoded_json->User->Name;
 	$filedata["score"] = $score;
 
 	array_push($data, $filedata);

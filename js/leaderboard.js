@@ -6,7 +6,7 @@ function HandleResults(jsonData){
 	var counter = 1;
 	for (var i = 0; i < jsonData.length; i++) {
 		var userData = jsonData[i];
-		var row = ConstructRow(counter, userData["user"].replace(".json",""), userData["score"]);
+		var row = ConstructRow(counter, userData["name"].replace(".json",""), userData["score"]);
 		$("#leader-table-body").append(row);
 		counter++;
 	}	
