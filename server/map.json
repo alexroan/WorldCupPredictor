@@ -1,5 +1,43 @@
 {
 	"TeamNames":{
-		"A1" : "Russia"
+		"A1" : "Russia",
+		"A2" : "Saudi Arabia",
+		"A3" : "Egypt",
+		"A4" : "Uraguay",
+
+		"B1" : "Portugal",
+		"B2" : "Spain",
+		"B3" : "Morocco",
+		"B4" : "Japan",
+
+		"C1" : "France",
+		"C2" : "Australia",
+		"C3" : "Peru",
+		"C4" : "Denmark",
+
+		"D1" : "Argentina",
+		"D2" : "Iceland",
+		"D3" : "Croatia",
+		"D4" : "Nigeria",
+
+		"E1" : "Brazil",
+		"E2" : "Switzerland",
+		"E3" : "Costa Rica",
+		"E4" : "Serbia",
+
+		"F1" : "Germany",
+		"F2" : "Mexico",
+		"F3" : "Sweden",
+		"F4" : "South Korea",
+
+		"G1" : "Belgium",
+		"G2" : "Panama",
+		"G3" : "Tunisia",
+		"G4" : "England",
+
+		"H1" : "Poland",
+		"H2" : "Senegal",
+		"H3" : "Columbia",
+		"H4" : "Japan"
 	}
 }
