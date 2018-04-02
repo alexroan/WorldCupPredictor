@@ -1,4 +1,4 @@
-var serverAddress = "http://worldcup.dev/server";
+var serverAddress = "http://worldcup.local/server";
 $(document).ready(function(){
 	$(".navbar").load("../header.html");
 });
